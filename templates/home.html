@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Applications</title>
+</head>
+<body>
+    <div class="nav">
+        <p style="font-weight: bold;">SUMMER INTERNSHIP</p>
+        <ul>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </div>
+
+    <center><h2 class="title">Your Internship Applications</h2></center>
+
+    <div class="container">
+        
+        {% for i in applications.get_student_company_application %}
+            <div class="application">
+                <p>Company name: {{i.company_name}}</p>
+                <p>
+                    Application status: 
+                    {% if i.application_status == True %} 
+                        <span id="success">Accepted</span> 
+                    {% else %} 
+                        <span id="warning">Waiting</span> 
+                    {% endif %} 
+                </p>
+                {% if i.application_status == True %} 
+                    <p>Selected: 
+                        {% if i.is_selected == True %} 
+                            <span id="success">Selected</span> 
+                        {% else %} 
+                            <span id="warning">Not selected</span> 
+                        {% endif %}</p>
+                {% endif %}
+                <p>Remark: {{i.remark}}</p>
+                <p>Application date: {{i.date_of_application}}</p>
+            </div>
+        {% endfor %}
+        
+    </div>
+</body>
+<style>
+    * {
+    padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background-color: rgb(130, 106, 251);
+    min-height: 100vh;
+}
+
+.nav {
+    display: flex;
+    height: 7vh;
+    background-color: #fff;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+}
+
+.nav ul li {
+    display: inline-block;
+    list-style: none;
+}
+
+.nav ul li a {
+    text-decoration: none;
+    padding: 10px;
+    color: rgb(130, 106, 251);
+}
+
+nav ul li :hover {
+    background-color: rgb(130, 106, 251);
+    transition: 0.8s;
+}
+
+.container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.container .application {
+    padding: 20px;
+    margin: 10px;
+    margin-top: 20px;
+    display: inline-block;
+    width: 450px;
+    min-height: 200px;
+    max-height: 350px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.container .application p {
+    padding: 8px;
+    font-weight: bold;
+}
+
+.title {
+    padding: 10px;
+}
+
+#success {
+    color: green;
+}
+
+#warning {
+    color: firebrick;
+}
+</style>
+</html>
